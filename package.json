@@ -1,0 +1,33 @@
+{
+  "name": "mysticatea-utils",
+  "version": "1.0.0",
+  "description": "Utility Programs for me.",
+  "bin": {
+    "update-eslint": "bin/update-eslint.js"
+  },
+  "scripts": {
+    "lint": "eslint lib bin",
+    "test": "npm run lint"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "devDependencies": {
+    "eslint": "^2.9.0",
+    "eslint-config-mysticatea": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mysticatea/utils.git"
+  },
+  "keywords": [],
+  "author": "Toru Nagashima",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mysticatea/utils/issues"
+  },
+  "homepage": "https://github.com/mysticatea/utils#readme",
+  "dependencies": {
+    "cross-spawn": "^2.2.3"
+  }
+}
