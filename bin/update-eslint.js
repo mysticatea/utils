@@ -50,7 +50,7 @@ function unlinkEslint() {
         Fs.unlinkSync("./node_modules/eslint");
     }
     catch (err) {
-        if (err.ENOENT) {
+        if (err.code === "ENOENT") {
             return;
         }
         throw err;
@@ -62,7 +62,7 @@ function unlinkEslint() {
  * @returns {void}
  */
 function update() {
-    spawn("npm", ["install"], {stdio: "inherit"});
+    spawn.sync("npm", ["install"], {stdio: "inherit"});
 }
 
 //------------------------------------------------------------------------------
