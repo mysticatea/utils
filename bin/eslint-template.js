@@ -4,123 +4,41 @@
  * @copyright 2016 Toru Nagashima. All rights reserved.
  * See LICENSE file in root directory for full license.
  */
-"use strict";
+"use strict"
 
 //-----------------------------------------------------------------------------
 // Requirements
 //-----------------------------------------------------------------------------
 
-const Fs = require("fs");
+const path = require("path")
+
+//-----------------------------------------------------------------------------
+// Helpers
+//-----------------------------------------------------------------------------
+
+/**
+ * Checks whether this directory is "eslint" or not.
+ *
+ * @returns {boolean} `true` if this directory is "eslint".
+ */
+function isESLintCore() {
+    return path.basename(process.cwd()) === "eslint"
+}
 
 //-----------------------------------------------------------------------------
 // Main
 //-----------------------------------------------------------------------------
 /*eslint-disable no-console, no-process-exit */
 
-const rule = process.argv[2];
-
+const rule = process.argv[2]
 if (typeof rule !== "string" || !/^[a-z]+(?:-[a-z]+)*$/.test(rule)) {
-    console.log(`Invalid Argument: ${rule}`);
-    process.exit(1);
+    console.error(`Invalid Argument: ${rule}`)
+    process.exit(1)
 }
 
-Fs.writeFileSync(`lib/rules/${rule}.js`, `/**
- * @fileoverview Rule to
- * @author Toru Nagashima
- */
+const generateFiles = require(`../lib/${
+    isESLintCore() ? "eslint-template" : "eslint-plugin-template"
+}`)
+generateFiles(rule)
 
-"use strict";
-
-//------------------------------------------------------------------------------
-// Requirements
-//------------------------------------------------------------------------------
-
-var astUtils = require("../ast-utils");
-
-//------------------------------------------------------------------------------
-// Helpers
-//------------------------------------------------------------------------------
-
-//------------------------------------------------------------------------------
-// Rule Definition
-//------------------------------------------------------------------------------
-
-module.exports = {
-    meta: {
-        docs: {
-            description: "",
-            category: "Possible Errors",
-            category: "Best Practices",
-            category: "Stylistic Issues",
-            recommended: false
-        },
-        schema: []
-    },
-
-    create: function(context) {
-        var sourceCode = context.getSourceCode();
-
-        return {
-        };
-    }
-};
-`);
-
-Fs.writeFileSync(`tests/lib/rules/${rule}.js`, `/**
- * @fileoverview Tests for ${rule} rule.
- * @author Toru Nagashima
- */
-
-"use strict";
-
-//------------------------------------------------------------------------------
-// Requirements
-//------------------------------------------------------------------------------
-
-var rule = require("../../../lib/rules/${rule}"),
-    RuleTester = require("../../../lib/testers/rule-tester");
-
-//------------------------------------------------------------------------------
-// Tests
-//------------------------------------------------------------------------------
-
-var ruleTester = new RuleTester();
-
-ruleTester.run("${rule}", rule, {
-    valid: [
-    ],
-    invalid: [
-    ]
-});
-`);
-
-Fs.writeFileSync(`docs/rules/${rule}.md`, `#  (${rule})
-
-## Rule Details
-
-Examples of **incorrect** code for this rule:
-
-\`\`\`js
-/*eslint ${rule}: "error"*/
-
-\`\`\`
-
-Examples of **correct** code for this rule:
-
-\`\`\`js
-/*eslint ${rule}: "error"*/
-
-\`\`\`
-
-## Options
-
-\`\`\`json
-{
-    "${rule}": ["error"]
-}
-\`\`\`
-
-## When Not To Use It
-
-If you don't want to ***, then it's safe to disable this rule.
-`);
+/*eslint-enable */

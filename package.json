@@ -2,23 +2,27 @@
   "name": "mysticatea-utils",
   "version": "1.0.0",
   "description": "Utility Programs for me.",
+  "engines": {
+    "node": ">=4"
+  },
   "bin": {
     "eslint-template": "bin/eslint-template.js",
     "eslint-update": "bin/eslint-update.js"
   },
+  "files": [
+    "bin",
+    "lib"
+  ],
   "scripts": {
     "lint": "eslint lib bin",
     "test": "npm run lint"
   },
-  "engines": {
-    "node": ">=4"
-  },
   "dependencies": {
-    "cross-spawn": "^2.2.3"
+    "cross-spawn": "^5.0.1"
   },
   "devDependencies": {
-    "eslint": "^2.9.0",
-    "eslint-config-mysticatea": "^3.0.0"
+    "eslint": "^3.16.0",
+    "eslint-config-mysticatea": "^8.0.0"
   },
   "repository": {
     "type": "git",

@@ -4,15 +4,15 @@
  * @copyright 2016 Toru Nagashima. All rights reserved.
  * See LICENSE file in root directory for full license.
  */
-"use strict";
+"use strict"
 
 //------------------------------------------------------------------------------
 // Helpers
 //------------------------------------------------------------------------------
 
-const Fs = require("fs");
-const Path = require("path");
-const spawn = require("cross-spawn");
+const Fs = require("fs")
+const Path = require("path")
+const spawn = require("cross-spawn")
 
 //------------------------------------------------------------------------------
 // Helpers
@@ -23,11 +23,11 @@ const spawn = require("cross-spawn");
  * @returns {void}
  */
 function checkCwd() {
-    const path = process.cwd();
-    const name = Path.basename(path);
+    const path = process.cwd()
+    const name = Path.basename(path)
 
     if (name !== "eslint") {
-        throw new Error(`This is not 'eslint' directory: ${path}`);
+        throw new Error(`This is not 'eslint' directory: ${path}`)
     }
 }
 
@@ -36,9 +36,9 @@ function checkCwd() {
  * @returns {void}
  */
 function linkEslint() {
-    const target = process.cwd();
-    const newPort = Path.join(process.cwd(), "node_modules", "eslint");
-    Fs.symlinkSync(target, newPort, "junction");
+    const target = process.cwd()
+    const newPort = Path.join(process.cwd(), "node_modules", "eslint")
+    Fs.symlinkSync(target, newPort, "junction")
 }
 
 /**
@@ -47,13 +47,13 @@ function linkEslint() {
  */
 function unlinkEslint() {
     try {
-        Fs.unlinkSync("./node_modules/eslint");
+        Fs.unlinkSync("./node_modules/eslint")
     }
     catch (err) {
         if (err.code === "ENOENT") {
-            return;
+            return
         }
-        throw err;
+        throw err
     }
 }
 
@@ -62,14 +62,14 @@ function unlinkEslint() {
  * @returns {void}
  */
 function update() {
-    spawn.sync("npm", ["install"], {stdio: "inherit"});
+    spawn.sync("npm", ["install"], {stdio: "inherit"})
 }
 
 //------------------------------------------------------------------------------
 // Main
 //------------------------------------------------------------------------------
 
-checkCwd();
-unlinkEslint();
-update();
-linkEslint();
+checkCwd()
+unlinkEslint()
+update()
+linkEslint()
